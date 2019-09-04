@@ -12,13 +12,14 @@ pipeline {
        Repository = "demomave"
        Repo_userid = "demomave"
        Repo_passwd = "demomave123"
-	    sh ' echo "${BUILD_ID}_${Port}_${IP}_${Image_name}_${Tag}_${Image_name}_${Container_name}_${Repository}_${Repo_userid}_${Repo_passwd}
+       
       }
     
   stages {
      stage('Code Validate'){
        steps {
                sh 'ls -ltr'
+	       sh ' echo "${BUILD_ID}_${Port}_${IP}_${Image_name}_${Tag}_${Image_name}_${Container_name}_${Repository}_${Repo_userid}_${Repo_passwd}"'
         }
      }
      stage ('Image Creation') {
