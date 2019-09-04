@@ -10,8 +10,8 @@ pipeline {
        Tag = "latest"
        Container_name = "nginx-test"
        Repository = "demomave"
-       Repo_userid = "demomave"
-       Repo_passwd = "demomave123"
+       Repo_userid = "demomav"
+       Repo_passwd = "demomav123"
        
       }
     
