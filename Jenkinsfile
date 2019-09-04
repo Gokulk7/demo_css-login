@@ -1,14 +1,7 @@
 pipeline {
   agent any 
-    stages {
-      stage('code Validate'){
-	steps {
-        sh 'ls -ltr'
-        }
-      }
-    
-    stage ('define env') {
-       environment {
+      
+    environment {
         // 'This value is exported to all commands in this stage'
        BUILD_ID = "${env.BUILD_ID}"
        Port = "8004"         // def port for container
@@ -19,9 +12,16 @@ pipeline {
        Repository = "demomave"
        Repo_userid = "demomave"
        Repo_passwd = "demomave123"
+	       sh ' echo $
       }
-    }
-   stage ('Image Creation') {
+    
+  stages {
+     stage('Code Validate'){
+       steps {
+               sh 'ls -ltr'
+        }
+     }
+     stage ('Image Creation') {
        steps {
 	       sh 'docker build -t ${Image_name}-${BUILD_ID}:${tag} .'
 	       sh 'docker run -d -p ${Port}:80 --name ${Container_name}-c${BUILD_ID} ${Image_name}-${BUILD_ID}:${tag}' 
