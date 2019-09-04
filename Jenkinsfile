@@ -37,6 +37,7 @@ pipeline {
              sh 'docker commit ${Container_name}-c${BUILD_ID} ${Repository}/${Image_name}-${BUILD_ID}:${tag}'
 	      sh 'docker login -u ${Repo_userid} -p ${Repo_passwd}'
              sh 'docker push ${Repository}/${Image_name}-${BUILD_ID}:${tag}'
-  }
+        }
+      }
+    }
 }
-
