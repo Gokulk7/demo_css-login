@@ -7,12 +7,12 @@ pipeline {
        Port = "8004"         // def port for container
        IP = "34.93.211.93"   // master machien ip
        Image_name = "nginx-local"
-       tag = "latest"
+       Tag = "latest"
        Container_name = "nginx-test"
        Repository = "demomave"
        Repo_userid = "demomave"
        Repo_passwd = "demomave123"
-	       sh ' echo $
+	    sh ' echo "${BUILD_ID}_${Port}_${IP}_${Image_name}_${Tag}_${Image_name}_${Container_name}_${Repository}_${Repo_userid}_${Repo_passwd}
       }
     
   stages {
@@ -23,8 +23,8 @@ pipeline {
      }
      stage ('Image Creation') {
        steps {
-	       sh 'docker build -t ${Image_name}-${BUILD_ID}:${tag} .'
-	       sh 'docker run -d -p ${Port}:80 --name ${Container_name}-c${BUILD_ID} ${Image_name}-${BUILD_ID}:${tag}' 
+	       sh 'docker build -t ${Image_name}-${BUILD_ID}:${Tag} .'
+	       sh 'docker run -d -p ${Port}:80 --name ${Container_name}-c${BUILD_ID} ${Image_name}-${BUILD_ID}:${Tag}' 
        }
     }
    stage ('Validate Image') {
@@ -34,9 +34,9 @@ pipeline {
       }
     stage ('Push Image') {
       steps {
-             sh 'docker commit ${Container_name}-c${BUILD_ID} ${Repository}/${Image_name}-${BUILD_ID}:${tag}'
+             sh 'docker commit ${Container_name}-c${BUILD_ID} ${Repository}/${Image_name}-${BUILD_ID}:${Tag}'
 	      sh 'docker login -u ${Repo_userid} -p ${Repo_passwd}'
-             sh 'docker push ${Repository}/${Image_name}-${BUILD_ID}:${tag}'
+             sh 'docker push ${Repository}/${Image_name}-${BUILD_ID}:${Tag}'
         }
       }
     }
