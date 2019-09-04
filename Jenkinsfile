@@ -1,9 +1,12 @@
 pipeline {
   agent any 
     stages {
-	   stage('Clone Repo') {
-        /* Let's make sure we have the repository cloned to our workspace */
-        checkout scm
-    }
+	stage('code Validate'){
+           sh 'ls -ltr'
+               }
+          }
+
+
+
 }
-}
+
