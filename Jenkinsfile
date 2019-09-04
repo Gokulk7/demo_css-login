@@ -8,10 +8,13 @@ pipeline {
        IP = "34.93.211.93"   // master machien ip
        Image_name = "nginx-local"
        Tag = "latest"
-       Container_name = "nginx-test"
+       Container_name = "${Image_name}-c"
        Repository = "demomav"
        Repo_userid = "demomav"
        Repo_passwd = "demomav123"
+       k8_ideploy = "k8-${Image_name}"
+       k8_Port = "8100"
+       k8_Type = "LoadBalancer"
        
       }
     
@@ -40,5 +43,12 @@ pipeline {
              sh 'docker push ${Repository}/${Image_name}-${BUILD_ID}:${Tag}'
         }
       }
+    stage ('K8 Deploy') {
+      steps {
+	   sh 'kubectl run ${k8_ideploy} --image=${Repository}/${Image_name}-${BUILD_ID}:${Tag} --replicas=1 --port=80'
+	   sh 'kubectl expose deployment ${k8_ideploy} --port=${k8_Port} --target-port=80 --type=${k8_Type}'
+	  }
+      }
+	
     }
 }
