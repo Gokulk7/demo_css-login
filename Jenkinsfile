@@ -30,7 +30,7 @@ pipeline {
     }
    stage ('Validate Image') {
      steps {
-	     sh 'curl http://${IP}:${port}'
+	     sh 'curl http://${IP}:${Port}'
          }
       }
     stage ('Push Image') {
