@@ -9,7 +9,7 @@ pipeline {
        Image_name = "nginx-local"
        Tag = "latest"
        Container_name = "nginx-test"
-       Repository = "demomave"
+       Repository = "demomav"
        Repo_userid = "demomav"
        Repo_passwd = "demomav123"
        
