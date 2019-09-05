@@ -4,7 +4,7 @@ pipeline {
     environment {
         // 'This value is exported to all commands in this stage'
        BUILD_ID = "${env.BUILD_ID}"
-       Port = "8005"         // def port for container
+       Port = "8006"         // def port for container
        IP = "34.93.139.185"   // master machien ip
        Image_name = "nginx-local"
        Tag = "latest"
@@ -13,7 +13,7 @@ pipeline {
        Repo_userid = "demomav"
        Repo_passwd = "demomav123"
        k8_ideploy = "k8-${Image_name}"
-       k8_Port = "8200"
+       k8_Port = "8300"
        k8_Type = "LoadBalancer"
        
       }
@@ -45,8 +45,9 @@ pipeline {
       }
     stage ('K8 Deploy') {
       steps {
-	   sh 'sudo kubectl run ${k8_ideploy} --image=${Repository}/${Image_name}-${BUILD_ID}:${Tag} --replicas=1 --port=80'
-	   sh 'sudo kubectl expose deployment ${k8_ideploy} --port=${k8_Port} --target-port=80 --type=${k8_Type}'
+	    sh 'kubectl create secret docker-registry hub-docker --docker-server=cloud.docker.com --docker-username=demomav --docker-password=demomav123 --docker-email=gokulsmanickam@gmail.com'
+	   sh 'kubectl run ${k8_ideploy} --image=${Repository}/${Image_name}-${BUILD_ID}:${Tag} --replicas=1 --port=80'
+	   sh 'kubectl expose deployment ${k8_ideploy} --port=${k8_Port} --target-port=80 --type=${k8_Type}'
 	  }
       }
 	
