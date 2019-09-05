@@ -45,8 +45,8 @@ pipeline {
       }
     stage ('K8 Deploy') {
       steps {
-	   sh 'kubectl run ${k8_ideploy} --image=${Repository}/${Image_name}-${BUILD_ID}:${Tag} --replicas=1 --port=80'
-	   sh 'kubectl expose deployment ${k8_ideploy} --port=${k8_Port} --target-port=80 --type=${k8_Type}'
+	   sh 'sudo kubectl run ${k8_ideploy} --image=${Repository}/${Image_name}-${BUILD_ID}:${Tag} --replicas=1 --port=80'
+	   sh 'sudo kubectl expose deployment ${k8_ideploy} --port=${k8_Port} --target-port=80 --type=${k8_Type}'
 	  }
       }
 	
