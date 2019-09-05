@@ -4,9 +4,9 @@ pipeline {
     environment {
         // 'This value is exported to all commands in this stage'
        BUILD_ID = "${env.BUILD_ID}"
-       Port = "8006"         // def port for container
-       IP = "34.93.139.185"   // master machien ip
-       Image_name = "nginx-local"
+       Port = "8006"         // define port for container
+       IP = "34.93.241.6"   // Master machien ip
+       Image_name = "mdep-image"
        Tag = "latest"
        Container_name = "${Image_name}-c"
        Repository = "demomav"
@@ -21,7 +21,7 @@ pipeline {
   stages {
      stage('Code Validate'){
        steps {
-               sh 'ls -ltr'
+               sh 'ls -ltr'   // check files are available
 	       sh ' echo "${BUILD_ID}_${Port}_${IP}_${Image_name}_${Tag}_${Image_name}_${Container_name}_${Repository}_${Repo_userid}_${Repo_passwd}"'
         }
      }
@@ -45,7 +45,7 @@ pipeline {
       }
     stage ('K8 Deploy') {
       steps {
-	   sh 'kubectl  --kubeconfig /home/gokulsk_m/.kube/config run ${k8_ideploy} --image=${Repository}/${Image_name}-${BUILD_ID}:${Tag} --replicas=1 --port=80'
+	   sh 'kubectl  --kubeconfig /home/gokulsk_m/.kube/config run ${k8_ideploy} --image=${Repository}/${Image_name}-${BUILD_ID}:${Tag} --replicas=2 --port=80'
 	   sh 'kubectl  --kubeconfig /home/gokulsk_m/.kube/config expose deployment ${k8_ideploy} --target-port=80 --type=${k8_Type}'
       		}
     }
