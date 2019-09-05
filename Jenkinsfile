@@ -46,7 +46,16 @@ pipeline {
     stage ('K8 Deploy') {
       steps {
 	   sh 'kubectl  --kubeconfig /home/gokulsk_m/.kube/config run ${k8_ideploy} --image=${Repository}/${Image_name}-${BUILD_ID}:${Tag} --replicas=1 --port=80'
-	   sh 'kubectl  --kubeconfig /home/gokulsk_m/.kube/config expose deployment ${k8_ideploy} --port=${k8_Port} --target-port=80 --type=${k8_Type}'
+	   sh 'kubectl  --kubeconfig /home/gokulsk_m/.kube/config expose deployment ${k8_ideploy} --target-port=80 --type=${k8_Type}'
+      		}
+    }
+     stage ('Validate-deploy') {
+	steps {
+	    sh 'kubectl --kubeconfig /home/gokulsk_m/.kube/config get service'
+	    sh 'kubectl --kubeconfig /home/gokulsk_m/.kube/config get deployment'
+	    sh 'kubectl --kubeconfig /home/gokulsk_m/.kube/config get deployment -o wide'
+            sh 'kubectl --kubeconfig /home/gokulsk_m/.kube/config get pod -o wide'
+	    
 	  }
       }
 	
