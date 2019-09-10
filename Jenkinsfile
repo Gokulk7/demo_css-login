@@ -4,16 +4,16 @@ pipeline {
     environment {
         // 'This value is exported to all commands in this stage'
        BUILD_ID = "${env.BUILD_ID}"
-       Port = "8001"         // define port for container
-       IP = "34.93.139.185"   // Master machien ip
-       Image_name = "mdep-image"
+       Port = "3333"         // define port for container
+       IP = "34.93.211.93"   // Master machien ip
+       Image_name = "mdep-login"
        Tag = "latest"
        Container_name = "${Image_name}-c"
        Repository = "demomav"
        Repo_userid = "demomav"
        Repo_passwd = "demomav123"
        k8_ideploy = "k8-${Image_name}"
-       k8_Port = "8100"
+       k8_Port = "8300"
        k8_Type = "LoadBalancer"
        
       }
