@@ -1,5 +1,6 @@
-FROM demomav/localimage:1.2
+FROM httpd
 
 LABEL maintainer "gokul.sureshkumar@mavenir.com"
 
-COPY index.html /usr/share/nginx/html/
+COPY login.html /usr/local/apache2/htdocs/login.html
+COPY css /usr/local/apache2/htdocs/css
