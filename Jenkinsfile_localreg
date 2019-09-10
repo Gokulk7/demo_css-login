@@ -38,9 +38,9 @@ pipeline {
       }
     stage ('Push Image') {
       steps {
-             sh 'docker commit ${Container_name}-c${BUILD_ID} localhost:5001/${Image_name}-${BUILD_ID}:${Tag}'
+             sh 'docker commit ${Container_name}-c${BUILD_ID} localhost:5000/${Image_name}-${BUILD_ID}:${Tag}'
 	      sh 'docker login -u ${Repo_userid} -p ${Repo_passwd}'
-             sh 'docker push localhost:5001/${Image_name}-${BUILD_ID}:${Tag}'
+             sh 'docker push localhost:5000/${Image_name}-${BUILD_ID}:${Tag}'
         }
       }
     stage ('K8 Deploy') {
