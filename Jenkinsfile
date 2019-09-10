@@ -33,7 +33,7 @@ pipeline {
     }
    stage ('Validate Image') {
      steps {
-	     sh 'curl http://${IP}:${Port}'
+	     sh 'curl http://${IP}:${Port}/login.html'
          }
       }
     stage ('Push Image') {
